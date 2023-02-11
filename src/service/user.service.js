@@ -16,7 +16,7 @@ class UserServer {
         const statement = 'SELECT * FROM `user` WHERE name = ?;'
         // 解构出values field不需要 如果length不为0 则说明存在
         const [values] = await connection.execute(statement, [name])
-        return values.length
+        return values
     }
 }
 
