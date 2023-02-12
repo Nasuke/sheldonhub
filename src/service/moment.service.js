@@ -7,7 +7,7 @@ class MomentService {
         return result
     }
     async querylist(offset = 0, size = 10) {
-        const statement = `SELECT m.id id, m.content content, m.createAt createTime, m.updateAt updateTime, JSON_OBJECT('id', u.id, 'name', u.name, 'createTime', u.createAt, 'updateTime', u.updateAt) AS user FROM moment m LEFT JOIN user u ON u.id = m.user_id LIMIT ?,?;`
+        const statement = `SELECT m.id id, m.content content, m.createAt createTime, m.updateAt updateTime, JSON_OBJECT('id', u.id, 'name', u.name, 'createTime', u.createAt, 'updateTime', u.updateAt) AS user, (SELECT COUNT(*) FROM comment WHERE comment.moment_id = m.id) AS commentCount FROM moment m LEFT JOIN user u ON u.id = m.user_id LIMIT ?,?;`
         const [result] = await connection.execute(statement, [offset, size])
         return result
     }
