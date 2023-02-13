@@ -18,6 +18,12 @@ class UserServer {
         const [values] = await connection.execute(statement, [name])
         return values
     }
+    async updateUserAvatar(avatarUrl, userId) {
+        const statement = 'UPDATE user SET avatar_url = ? WHERE id = ?;'
+        // 解构出values field不需要 如果length不为0 则说明存在
+        const [result] = await connection.execute(statement, [avatarUrl, userId])
+        return result
+    }
 }
 
 module.exports = new UserServer()

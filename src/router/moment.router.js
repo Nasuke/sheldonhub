@@ -1,5 +1,6 @@
 const KoaRouter = require('@koa/router')
-const { create, list, detail, update, remove } = require('../controller/moment.controller')
+const { create, list, detail, update, remove, addLabels } = require('../controller/moment.controller')
+const verifyLabelExists = require('../middleware/label.middleware')
 const { verifyAuth } = require('../middleware/login.middleware')
 const { verifyPermission } = require('../middleware/permission.middleware')
 
@@ -14,6 +15,16 @@ momentRouter.get('/', list)
 momentRouter.get('/:momentId', detail)
 
 // 4.改(需要身份验证)
-momentRouter.patch('/:momentId', verifyAuth, verifyPermission,update)
+momentRouter.patch('/:momentId', verifyAuth, verifyPermission, update)
+
+// 5.添加标签
+/**
+ * 1. 是否登录
+ * 2. 是否有操作这个动态的权限
+ * 3. 所选标签是否存在
+ * 4. 将标签和动态关系添加到关系表中
+ */
+momentRouter.post('/:momentId/label', verifyAuth, verifyPermission, verifyLabelExists, addLabels)
+
 
 module.exports = momentRouter

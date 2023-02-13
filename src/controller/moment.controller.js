@@ -1,4 +1,4 @@
-const { create, querylist, queryById, updateById, remove } = require("../service/moment.service")
+const { create, querylist, queryById, updateById, remove, hasLabel, addLabel } = require("../service/moment.service")
 
 class MomentController {
     async create(ctx, next) {
@@ -57,6 +57,29 @@ class MomentController {
             data: result
         }
 
+    }
+    async addLabels(ctx, next) {
+        // 1. 获取moment_id 与 label_id
+        const { labels } = ctx
+        const { momentId } = ctx.params
+        // 2. 没有过的标签存到关系表中
+        try {
+            for (const label of labels) {
+                const isLabelExists = await hasLabel(momentId, label.id)
+                if (!isLabelExists) {
+                    const result = await addLabel(momentId, label.id)
+                }
+            }
+            ctx.body = {
+                code: 0,
+                message: '动态添加上标签了!'
+            }
+        } catch (error) {
+            ctx.body = {
+                code: -3001,
+                message: '给动态添加标签失败...'
+            }
+        }
     }
 }
 
