@@ -21,7 +21,6 @@ class UserController {
         const { userId } = ctx.params
         // 2. 获取id对应头像信息
         const avatarInfo = await getAvatarByID(userId)
-        console.log(avatarInfo);
         // 3. 读取头像所在文件
         const { filename, mimetype } = avatarInfo
         // 4. 创建一个可读流

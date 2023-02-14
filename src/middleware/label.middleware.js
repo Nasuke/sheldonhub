@@ -16,7 +16,6 @@ const verifyLabelExists = async (ctx, next) => {
             labelObj.id = result.id
         } else {
             const insertResult = await create(name)
-            console.log(insertResult.insertId);
             labelObj.id = insertResult.insertId
         }
         labelObjArr.push(labelObj)

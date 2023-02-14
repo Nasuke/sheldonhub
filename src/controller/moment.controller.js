@@ -58,6 +58,7 @@ class MomentController {
         }
 
     }
+    
     async addLabels(ctx, next) {
         // 1. 获取moment_id 与 label_id
         const { labels } = ctx
