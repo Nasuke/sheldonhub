@@ -1,5 +1,5 @@
 # sheldonhub
-基于Koa.js的社区系网站后端api
+基于Koa.js的社区系网站后端api [使用Postman访问](http://139.9.87.234:8000/) 
 
 ## 安装
 * pnpm install安装所有依赖
